@@ -9,38 +9,98 @@
 <body>
   <header class="navbar">
     <img src="website_logo.png" alt="Charity Water Logo" class="logo" />
-    <nav>
-      <ul>
-        <li><a href="#">Take Action</a></li>
-        <li><a href="#">Get to Know Us</a></li>
-      </ul>
-    </nav>
-    <a href="#donate" class="donate-btn">Give Now</a>
+    <div class="align-right">
+      <a href="#donate" class="donate-btn light">Give Now</a>
+    </div>
   </header>
 
-  <section class="hero" style="background-image: url('web_background.jpg');">
-    <div class="hero-content">
-      <h1>Give Water, Give Life</h1>
-      <p>Be the Reason Someone Drinks Clean Water Today</p>
-      <p class="subtext">
-        At charity: water, we make giving back easy, impactful, and transparent.
-        Your $10 can help bring clean water to real families around the world.
-        It’s fast, meaningful, and built for people who want their values to drive real change.
-      </p>
-      <form class="donation-form" id="donate">
-        <h3>Choose an amount to give</h3>
-        <div class="amount-options">
-          <button type="button">$10</button>
-          <button type="button">$20</button>
-          <button type="button">$50</button>
-          <button type="button">$100</button>
-          <button type="button">$150</button>
-          <button type="button">$200</button>
-          <input type="text" placeholder="Other amount" />
-        </div>
-        <button type="submit" class="submit-btn">Give</button>
-      </form>
+  <section class="hero">
+    <div class="overlay">
+      <div class="hero-content">
+        <h1 class="headline">Give Water, Give Life</h1>
+          <p class="subhead">Be the Reason Someone Drinks Clean Water Today</p>
+          <p class="description light">
+            At charity: water, we make giving back easy, impactful, and transparent. Your $10 can help bring clean water to real families around the world. It’s fast, meaningful, and built for people who want their values to drive real change.
+          </p>
+      </div>
+      <div class="donation-box">
+        <form class="donation-form" id="donate">
+          <h3>Choose an amount to give</h3>
+          <div class="amount-options">
+            <button type="button">$10</button>
+            <button type="button">$20</button>
+            <button type="button">$50</button>
+            <button type="button">$100</button>
+            <button type="button">$150</button>
+            <button type="button">$200</button>
+            <input type="text" class="text-input" placeholder="Other amount" />
+          </div>
+          <button type="submit" class="submit-btn">GIVE</button>
+        </form>
+      </div>
     </div>
   </section>
+
+  <div class="thank-you-message" id="thankYouMessage">
+    🎉 Congratulations and Thank You for Your Donation! 🎉
+  </div>
+
 </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".amount-options button");
+    const input = document.querySelector(".amount-options input");
+    const form = document.querySelector("#donate");
+    const thankYouMessage = document.getElementById("thankYouMessage");
+
+    if (buttons.length > 0) {
+      buttons[0].classList.add("selected");
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", function () {
+        buttons.forEach((btn) => btn.classList.remove("selected"));
+        input.value = "";
+        button.classList.add("selected");
+      });
+    });
+
+    input.addEventListener("focus", () => {
+      buttons.forEach((btn) => btn.classList.remove("selected"));
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const selectedButton = document.querySelector(".amount-options button.selected");
+      const inputValue = parseFloat(input.value);
+
+      if (!selectedButton && (!inputValue || inputValue <= 0)) {
+        alert("Please enter a valid donation amount!");
+        return;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.classList.add('confetti-canvas');
+      document.body.appendChild(canvas);
+
+      const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+
+      myConfetti({
+        particleCount: 300,
+        spread: 180,
+        startVelocity: 40,
+        origin: { y: 0.5 }
+      });
+
+      thankYouMessage.style.display = 'block';
+
+      setTimeout(() => {
+        canvas.remove();
+        thankYouMessage.style.display = 'none';
+      }, 4000);
+    });
+  });
+</script>

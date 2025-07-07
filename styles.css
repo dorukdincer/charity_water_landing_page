@@ -1,4 +1,4 @@
-/* Reset some default styles */
+/* Reset and base */
 * {
   margin: 0;
   padding: 0;
@@ -7,102 +7,125 @@
 
 body {
   font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: #FFF7E1;
+  color: #1A1A1A;
+  overflow-x: hidden;
 }
 
 .navbar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  flex-flow: flex-start;
   align-items: center;
   padding: 20px 40px;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  gap: 50px;
+  background-color: #FFF7E1;
+  position: relative;
+  z-index: 10;
+
 }
 
 .logo {
-  height: 40px;
+  height: 20px;
 }
 
-.navbar nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.navbar nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
+.light {
+  font-weight: lighter;
 }
 
 .donate-btn {
-  background-color: #f9c400;
-  color: black;
+  background-color: #FFC907;
+  color: #1A1A1A;
   padding: 10px 20px;
   text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.align-right {
+  margin-left: auto;
+}
+
+.donate-btn:hover {
+  background-color: #ca9e00;
 }
 
 .hero {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
+  background: url('web_background.jpg') no-repeat center center/cover;
+  height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding: 0 20px;
   position: relative;
 }
 
-.hero-inner {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+.overlay {
+  background-image: linear-gradient(to right, #77A8BB, rgba(255, 0, 0, 0));
   width: 100%;
-  padding-left: 60px;
-  padding-right: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  align-content: center;
+  align-items: center;
 }
 
-.left-box {
-  max-width: 500px;
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 40px;
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 40px;
   border-radius: 10px;
-  color: #333;
+  text-align: left;
 }
 
-.hero-content h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
+.donation-box {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  padding: 40px;
+  margin: 40px;
+  background-color: #FFF7E1;
+  border-radius: 10px;
 
-.hero-content p {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.hero-content .subtext {
-  font-size: 16px;
-  margin-top: 20px;
-  line-height: 1.5;
 }
 
 .donation-form {
-  margin-top: 30px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
 }
 
 .donation-form h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #1A1A1A;
+}
+
+.headline {
+  font-size: 60px;
+  color: #FFF7E1;
+  margin-bottom: 10px;
+}
+
+.subhead {
+  font-size: 24px;
+  color: #FFF7E1;
+  margin-bottom: 20px;
+}
+
+.description {
   font-size: 18px;
-  margin-bottom: 15px;
+  color: #FFF7E1;
+  margin-bottom: 30px;
+  line-height: 1.6;
 }
 
 .amount-options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -110,26 +133,39 @@ body {
 .amount-options button,
 .amount-options input {
   padding: 10px;
+  background-color: #CBCCD1;
   border: none;
-  background-color: #e0e0e0;
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
+  text-align: center;
   transition: background-color 0.3s;
+   width: 100%;
 }
 
-.amount-options button:hover {
-  background-color: #f9c400;
-  color: black;
+.amount-options button:hover,
+.amount-options input:focus {
+  background-color: #77A8BB;
+  outline: none;
+  color: #1A1A1A;
+}
+
+.amount-options button.selected {
+  background-color: #77A8BB;
+  color: #1A1A1A;
 }
 
 .amount-options input {
-  padding-left: 15px;
+  padding-left: 10px;
+}
+
+.amount-options input {
+  grid-column: span 3;
 }
 
 .submit-btn {
-  background-color: #f9c400;
-  color: black;
+  background-color: #FFC907;
+  color: #1A1A1A;
   padding: 12px 25px;
   border: none;
   border-radius: 5px;
@@ -137,8 +173,34 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 .submit-btn:hover {
-  background-color: #e0b200;
+  background-color: #ca9e00;
+}
+
+.thank-you-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 24px;
+  color: #1A1A1A;
+  z-index: 10000;
+  display: none;
+}
+
+canvas.confetti-canvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 10000;
+  pointer-events: none;
 }
